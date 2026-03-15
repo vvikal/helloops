@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: helloops
-        image: helloops:v1
+        image: helloops:v2
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
