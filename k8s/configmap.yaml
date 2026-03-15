@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: helloops-configmap
+data:
+  APP_VERSION: "v1"
+  APP_ENV: "dev-test"
