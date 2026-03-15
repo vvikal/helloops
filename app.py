@@ -2,7 +2,18 @@ from flask import Flask, jsonify
 from datetime import datetime
 import os
 
+from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
+
 app = Flask(__name__)
+
+REQUEST_COUNT = Counter(
+    "helloops_request_total",
+    "Total HTTPS request from the helloops"
+)
+
+@app.before_request
+def before_request():
+    REQUEST_COUNT.inc()
 
 @app.route("/")
 def home():
@@ -20,6 +31,10 @@ def health():
     return jsonify({
         "status" : "OK"
     })
+
+@app.route("/metrics")
+def metrics():
+    return generate_latest(), 200, {"content_type" : CONTENT_TYPE_LATEST}
 
 
 if __name__== "__main__":
