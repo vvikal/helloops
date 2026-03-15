@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helloops
+  namespace: argocd
+
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/vvikal/helloops.git
+    targetRevision: Main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: helloops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
